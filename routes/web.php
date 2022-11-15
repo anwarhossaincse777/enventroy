@@ -38,6 +38,8 @@ Route::middleware([ 'auth:sanctum'])->group(function(){
 
     Route::resource('categories',\App\Http\Controllers\CategoriesController::class );
 
+    Route::resource('brands',\App\Http\Controllers\BrandController::class );
+
 
 });
 
