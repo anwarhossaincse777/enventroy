@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+
 use http\Message;
 use Illuminate\Http\Request;
+use Picqer;
 
 class CategoriesController extends Controller
 {
@@ -45,9 +47,15 @@ class CategoriesController extends Controller
             'name'=>'required|min:2|max:50|unique:categories'
         ]);
 
+        $product_code=rand(106890122,100000000);
+        $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+        $barcode=$generator->getBarcode($product_code, $generator::TYPE_STANDARD_2_5,2,60);
         $category=new Category();
         $category->name=$request->name;
+        $category->category_code=$product_code;
+        $category->barcode=$barcode;
         $category->save();
+
 
             flash('Category Added Successfully')->success();
 
@@ -119,5 +127,13 @@ class CategoriesController extends Controller
         flash('Category Deleted Successfully')->success();
 
         return redirect()->route('categories.index');
+    }
+
+
+
+    public function createBarcode(){
+
+        return view('barcode');
+
     }
 }

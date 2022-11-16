@@ -40,7 +40,10 @@ Route::middleware([ 'auth:sanctum'])->group(function(){
 
     Route::resource('brands',\App\Http\Controllers\BrandController::class );
     Route::resource('sizes',\App\Http\Controllers\SizeController::class );
+    Route::resource('products',\App\Http\Controllers\ProductsController::class );
 
+
+    Route::get('/generate-barcode', [\App\Http\Controllers\CategoriesController::class, 'createBarcode'])->name('generate.barcode');
 
 });
 
